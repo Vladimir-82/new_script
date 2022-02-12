@@ -1,9 +1,12 @@
 import typing
-import os
+import yaml
 
-BASE_DIR = os.getcwd()
 
-args = [3, 5, 6, '7']
+with open('input.yaml') as f:
+    data = yaml.safe_load(f)
+args = [values for values in data.values()]
+
+
 result = []
 mod = int
 for var1 in args:
@@ -12,6 +15,7 @@ for var1 in args:
         var1 = mod(var1)
     result.append(var1)
 
-print(f'Путь к каталогу проекта - {BASE_DIR}')
-print(result)
+to_yaml = {'IT': result[0], 'id': result[1], 'to_id': result[2]}
 
+with open('output.yaml', 'w') as f:
+    yaml.dump(to_yaml, f, default_flow_style=False)
